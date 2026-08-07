@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>マリソパーティー</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- タイトル画面 -->
+<section class="screen active" data-screen="title">
+  <div class="title-bg"></div>
+  <div class="title-content">
+    <h1 class="game-logo">マリソ<span>パーティー</span></h1>
+    <p class="title-sub">みんなでワイワイ!ミニゲームパーティー</p>
+    <div class="title-buttons">
+      <button id="btn-start" class="btn btn-primary btn-large">🎮 はじめる</button>
+      <button id="btn-howto" class="btn btn-secondary">❓ あそびかた</button>
+    </div>
+    <p class="title-credit">10人のオリジナルキャラクター × 10種のミニゲーム</p>
+  </div>
+</section>
+
+<!-- あそびかたモーダル -->
+<div id="howto-modal" class="modal">
+  <div class="modal-box">
+    <h2>あそびかた</h2>
+    <ul>
+      <li>① BOTの人数(0〜3人)と強さを決める</li>
+      <li>② 自分のキャラクターを選ぶ</li>
+      <li>③ 遊びたいミニゲームを選ぶ</li>
+      <li>④ 移動: <b>WASD / 矢印キー</b>、ジャンプ・アクション: <b>スペース</b>、ダッシュ: <b>Shift</b></li>
+      <li>⑤ バトロワは個人戦、チーム戦は2vs2で対戦!</li>
+    </ul>
+    <button id="howto-close" class="btn btn-primary">とじる</button>
+  </div>
+</div>
+
+<!-- BOT設定画面 -->
+<section class="screen" data-screen="bot-setup">
+  <div class="panel">
+    <h2 class="panel-title">🤖 BOTを設定しよう</h2>
+    <div class="setting-row">
+      <label for="bot-count">BOTの人数(最大3人)</label>
+      <select id="bot-count">
+        <option value="0">0人</option>
+        <option value="1">1人</option>
+        <option value="2" selected>2人</option>
+        <option value="3">3人</option>
+      </select>
+    </div>
+    <div id="bot-diff-container" class="bot-diff-container"></div>
+    <p class="hint">※チーム戦を選ぶと合計4人になるようBOTが自動で調整されます</p>
+    <div class="panel-buttons">
+      <button id="btn-back-title-1" class="btn btn-secondary">← もどる</button>
+      <button id="btn-to-charselect" class="btn btn-primary">つぎへ →</button>
+    </div>
+  </div>
+</section>
+
+<!-- キャラクター選択画面 -->
+<section class="screen" data-screen="char-select">
+  <div class="panel panel-wide">
+    <h2 class="panel-title">🧑‍🎤 キャラクターを選ぼう</h2>
+    <div id="char-grid" class="char-grid"></div>
+    <div class="panel-buttons">
+      <button id="btn-back-bot-setup" class="btn btn-secondary">← もどる</button>
+      <button id="btn-to-minigame" class="btn btn-primary" disabled>つぎへ →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ミニゲーム選択画面 -->
+<section class="screen" data-screen="minigame-select">
+  <div class="panel panel-wide">
+    <h2 class="panel-title">🎲 ミニゲームを選ぼう</h2>
+    <h3 class="section-title">🔥 バトロワ(個人戦)</h3>
+    <div id="solo-grid" class="game-grid"></div>
+    <h3 class="section-title">👥 チーム戦(2vs2)</h3>
+    <div id="team-grid" class="game-grid"></div>
+    <div class="panel-buttons">
+      <button id="btn-back-charselect" class="btn btn-secondary">← キャラ選択へ</button>
+    </div>
+  </div>
+</section>
+
+<!-- プレイ画面 -->
+<section class="screen" data-screen="play">
+  <canvas id="game-canvas"></canvas>
+  <div class="hud-top">
+    <div class="hud-left">
+      <div id="hud-title" class="hud-game-title"></div>
+      <div id="hud-controls" class="hud-controls"></div>
+    </div>
+    <div id="hud-timer" class="hud-timer"></div>
+    <button id="btn-quit-game" class="btn btn-quit">✕ やめる</button>
+  </div>
+  <div id="hud-scoreboard" class="hud-scoreboard"></div>
+  <div id="hud-countdown" class="hud-countdown"></div>
+</section>
+
+<!-- 結果画面 -->
+<section class="screen" data-screen="results">
+  <div class="panel">
+    <h2 id="results-title" class="panel-title">けっか発表!</h2>
+    <div id="results-list" class="results-list"></div>
+    <div class="panel-buttons">
+      <button id="btn-back-minigame" class="btn btn-secondary">🎲 ミニゲーム選択</button>
+      <button id="btn-retry" class="btn btn-primary">🔁 もう一度</button>
+      <button id="btn-back-title-2" class="btn btn-secondary">🏠 タイトルへ</button>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+<script src="js/physics.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/characters.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/games/games_solo.js"></script>
+<script src="js/games/games_team.js"></script>
+<script src="js/minigames.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
